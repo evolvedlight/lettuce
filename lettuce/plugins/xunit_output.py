@@ -56,19 +56,8 @@ def enable(filename=None):
             return
         
         name = getattr(parent, 'name', 'Background')    # Background sections are nameless
-        
-        #We need the file path too
-        filepath = step.described_at.file
-        filedirectory = os.path.split(filepath)[0]
-        print 'FileDir %s' % filedirectory
-        prefix = 'features/'
-        if filedirectory.startswith('features/'):
-            filedirectory = filedirectory[len(prefix):]
-        
-        #Turn filepath into java-like package
-        filedirectory = filedirectory.replace(os.path.sep, '.')
-        print filedirectory
-        classname = utf8_string('.'.join([filedirectory, parent.feature.name, name]))
+
+        classname = utf8_string('.'.join([parent.feature.name, name]))
         tc = doc.createElement("testcase")
         tc.setAttribute("classname", classname)
         tc.setAttribute("name", step.sentence.encode('utf-8'))
